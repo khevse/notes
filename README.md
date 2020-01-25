@@ -32,6 +32,21 @@ dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/co
 dnf update docker-ce docker-ce-cli
 ```
 
+## errors
+
+### from install of podman-manpages-1.4.2-5.module_el8.1.0+237+63e26edc.noarch conflicts with file from package docker-ce-cli-1:19.03.5-3.el7.x86_64**
+[source](https://github.com/containers/libpod/issues/4791)
+
+```bash
+sudo yum -y remove podman
+# install all podman dependencies except podman-manpages
+sudo yum -y install oci-systemd-hook libvarlink
+# and install podman w/o dependencies
+sudo rpm -Uvh --nodeps $(repoquery --location podman)
+sudo yum -y install centos-release-stream
+```
+
+
 ## network
 [source](https://unix.stackexchange.com/questions/199966/how-to-configure-centos-7-firewalld-to-allow-docker-containers-free-access-to-th)
 
